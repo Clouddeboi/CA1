@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
-{
+{//variables
     //basic movement and jump variables
 
     private float horizontal;
@@ -12,6 +12,16 @@ public class PlayerMovement : MonoBehaviour
 
     //double jump variables
     private bool doubleJump;
+
+    //Wall slide and jump Variables
+    private bool isWallSliding;//indicadtes wall climbing
+    private float WallSlidingSpeed = 2f;
+    private bool isWallJumping;//indicates if player is wall jumping
+    private float WallJumpingDirection;//wall jumping direction
+    private float wallJumpingTime = 0.2f;//time wall jumping
+    private float wallJumpingCounter;//wall jump counter
+    private float wallJumpingDuration = 0.4f;//wall jumping duration
+    private Vector2 wallJumpingPower = new Vector2(8f, 16f);//power of wall jump
 
     //dash variables
     private bool canDash = true;//determines if player can dash
@@ -24,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TrailRenderer tr;
+    [SerializeField] private Transform wallcheck;
+    [SerializeField] private LayerMask wallLayer;
     // Update is called once per frame
     private void Update()
     {
@@ -33,7 +45,8 @@ public class PlayerMovement : MonoBehaviour
         }
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (IsGrounded() && !Input.GetButton("Jump"))
+
+        if (IsGrounded() && !Input.GetButton("Jump"))//check if coyote time is greater than 0 and if jump button is pressed
         {
             doubleJump = false;
         }
@@ -48,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)//allows the player to jump higher by pressing the jump button(space) longer by multiply it by 0.5
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
@@ -58,23 +71,88 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-        Flip();
+        WallSlide();
+        WallJump();
+
+        if(!isWallJumping)
+        {
+            Flip();
+        }
     }
 
     private void FixedUpdate()
     {
-        if (isDashing)
+        if(!isWallJumping)
         {
-            return;
+            if (isDashing)
+            {
+                return;
+            }
+            
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         }
-
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
+
+    private bool IsWalled()
+   {
+        return Physics2D.OverlapCircle(wallcheck.position, 0.2f, wallLayer);//checks if the player is colliding with a wall
+   }
+
+   private void WallSlide()
+   {
+        if(IsWalled() && !IsGrounded() && horizontal != 0f)//if we arent on the ground and we are at a wall set wall sliding to true
+        {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSlidingSpeed, float.MaxValue));
+           
+        }
+        else 
+        {
+            isWallSliding = false;
+        }
+   }
+
+   private void WallJump()
+   {
+        if(isWallSliding)
+        {
+            isWallJumping = false;
+            WallJumpingDirection = -transform.localScale.x;//flips the direction that the player is facing
+            wallJumpingCounter = wallJumpingTime;
+            CancelInvoke(nameof(StopWallJumping));//cancels method if player is wall sliding
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+
+        if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        {
+            isWallJumping = true;
+            rb.velocity = new Vector2(WallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            wallJumpingCounter = 0f;//prevents spamming jump button
+
+            if(transform.localScale.x != WallJumpingDirection)//flips player to face direction of movement
+            {
+                isFacingRight = !isFacingRight;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            }
+
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);//invoke method with a delay
+        }
+   }
+
+   private void StopWallJumping()
+   {
+        isWallJumping = false;
+   }
 
     private void Flip()
     {
