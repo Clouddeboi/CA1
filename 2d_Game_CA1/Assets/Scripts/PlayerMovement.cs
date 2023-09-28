@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+        
         horizontal = Input.GetAxisRaw("Horizontal");
 
 
@@ -66,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Joystick1Button2)&& canDash)
         {
             StartCoroutine(Dash());
         }

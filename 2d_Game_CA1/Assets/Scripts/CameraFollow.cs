@@ -5,7 +5,7 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour
 {
     private Vector3 offset = new Vector3(0f, 0f, -10f);//offset from the camera to the player
-    private float smoothTime = 0.25f;//time it will take camera to reach taregt (Player)
+    private float smoothTime = 0.1f;//time it will take camera to reach taregt (Player)
     private Vector3 velocity = Vector3.zero;
 
     [SerializeField] private Transform target;//choose target to follow
