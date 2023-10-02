@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
+    //coyote Time Variables(Video Reference/Guide Follow:https://www.youtube.com/watch?v=RFix_Kg2Di0&t=55s)
+    private float coyoteTime = 0.2f;//the higher the value the longer u have coyote time
+    private float coyoteTimeCounter;
+
     //double jump variables (Video Reference/Guide Follow: https://www.youtube.com/watch?v=RdhgngSUco0)
     private bool doubleJump;
 
@@ -46,15 +50,24 @@ public class PlayerMovement : MonoBehaviour
         
         horizontal = Input.GetAxisRaw("Horizontal");
 
-
-        if (IsGrounded() && !Input.GetButton("Jump"))//check if coyote time is greater than 0 and if jump button is pressed
+        if(IsGrounded())
         {
-            doubleJump = false;
+            coyoteTimeCounter = coyoteTime;//if we are grounded set the time counter to the coyote time
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;//if we arent grounded subtract the time
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (coyoteTimeCounter > 0f && Input.GetButtonDown("Jump"))//check if coyote time is greater than 0 and if jump button is pressed
         {
-            if (IsGrounded() || doubleJump)
+            doubleJump = false;
+
+        }
+
+        if (Input.GetButtonDown("Jump")) 
+        {
+            if (coyoteTimeCounter > 0f || doubleJump)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
 
@@ -65,6 +78,8 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)//allows the player to jump higher by pressing the jump button(space) longer by multiply it by 0.5
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+
+            coyoteTimeCounter = 0f;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Joystick1Button2)&& canDash)
