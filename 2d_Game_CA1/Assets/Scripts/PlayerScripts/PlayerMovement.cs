@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     //basic movement and jump variables (Video Reference/Guide Follow: https://www.youtube.com/watch?v=K1xZ-rycYY8)
 
     private float horizontal;
-    private float speed = 8f;
+    private float speed = 12f;
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private float wallJumpingTime = 0.2f;//time wall jumping
     private float wallJumpingCounter;//wall jump counter
     private float wallJumpingDuration = 0.4f;//wall jumping duration
-    private Vector2 wallJumpingPower = new Vector2(8f, 16f);//power of wall jump
+    private Vector2 wallJumpingPower = new Vector2(10f, 18f);//power of wall jump
 
     //dash variables (Video Reference/Guide Follow: https://www.youtube.com/watch?v=2kFGmuPHiA0)
     private bool canDash = true;//determines if player can dash
@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
             coyoteTimeCounter = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Joystick1Button2)&& canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Joystick1Button2) && canDash)
         {
             StartCoroutine(Dash());
         }
