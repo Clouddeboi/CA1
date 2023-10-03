@@ -775,6 +775,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &325328918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,6 +1114,8 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 =======
 >>>>>>> parent of 2f0483a (fixed stupid issue)
+=======
+>>>>>>> parent of 2f0483a (fixed stupid issue)
 --- !u!1 &401377384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,7 +1407,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalPosition: {x: 329.6, y: -12.7, z: -10}
+=======
+  m_LocalPosition: {x: -16.7, y: -13.6, z: -10}
+>>>>>>> parent of 2f0483a (fixed stupid issue)
 =======
   m_LocalPosition: {x: -16.7, y: -13.6, z: -10}
 >>>>>>> parent of 2f0483a (fixed stupid issue)
@@ -1982,6 +1989,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &624699994
 GameObject:
@@ -6620,6 +6628,8 @@ TilemapCollider2D:
   m_UseDelaunayMesh: 0
 =======
 >>>>>>> parent of 2f0483a (fixed stupid issue)
+=======
+>>>>>>> parent of 2f0483a (fixed stupid issue)
 --- !u!1 &645654150
 GameObject:
   m_ObjectHideFlags: 0
@@ -6936,6 +6946,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &685202043
 GameObject:
@@ -7897,6 +7908,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+=======
+>>>>>>> parent of 2f0483a (fixed stupid issue)
 =======
 >>>>>>> parent of 2f0483a (fixed stupid issue)
 --- !u!1 &792494921
@@ -9013,7 +9026,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalPosition: {x: -26.6, y: -11.9, z: 0}
+=======
+  m_LocalPosition: {x: -16.9, y: -12.1, z: 0}
+>>>>>>> parent of 2f0483a (fixed stupid issue)
 =======
   m_LocalPosition: {x: -16.9, y: -12.1, z: 0}
 >>>>>>> parent of 2f0483a (fixed stupid issue)
@@ -10124,6 +10141,7 @@ Transform:
   - {fileID: 685064736}
   - {fileID: 920225170}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 308214027}
   - {fileID: 1008777595}
   - {fileID: 725910522}
@@ -10143,6 +10161,8 @@ Transform:
   - {fileID: 99322262}
   - {fileID: 131807540}
   - {fileID: 1964693489}
+=======
+>>>>>>> parent of 2f0483a (fixed stupid issue)
 =======
 >>>>>>> parent of 2f0483a (fixed stupid issue)
   - {fileID: 1011421186}
